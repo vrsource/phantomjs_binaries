@@ -1,8 +1,8 @@
-# Get twitter status for given account (or for the default one, "HeadlessPhantom")
+# Get twitter status for given account (or for the default one, "PhantomJS")
 
 page = require('webpage').create()
 system = require 'system'
-twitterId = 'HeadlessPhantom' #< default value
+twitterId = 'PhantomJS' #< default value
 
 # Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = (msg) ->
@@ -25,7 +25,7 @@ page.open encodeURI("http://mobile.twitter.com/#{twitterId}"), (status) ->
     else
         # Execute some DOM inspection within the page context
         page.evaluate ->
-            list = document.querySelectorAll 'span.status'
+            list = document.querySelectorAll 'div.tweet-text'
             for i, j in list
-                console.log "#{j + 1}: #{i.innerHTML.replace /<.*?>/g, ''}"
+                console.log "#{j + 1}: #{i.innerText}"
     phantom.exit()

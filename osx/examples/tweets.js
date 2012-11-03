@@ -1,8 +1,8 @@
-// Get twitter status for given account (or for the default one, "HeadlessPhantom")
+// Get twitter status for given account (or for the default one, "PhantomJS")
 
 var page = require('webpage').create(),
     system = require('system'),
-    twitterId = "HeadlessPhantom"; //< default value
+    twitterId = "PhantomJS"; //< default value
 
 // Route "console.log()" calls from within the Page context to the main Phantom context (i.e. current "this")
 page.onConsoleMessage = function(msg) {
@@ -27,9 +27,9 @@ page.open(encodeURI("http://mobile.twitter.com/" + twitterId), function (status)
     } else {
         // Execute some DOM inspection within the page context
         page.evaluate(function() {
-            var list = document.querySelectorAll('span.status');
+            var list = document.querySelectorAll('div.tweet-text');
             for (var i = 0; i < list.length; ++i) {
-                console.log((i + 1) + ": " + list[i].innerHTML.replace(/<.*?>/g, ''));
+                console.log((i + 1) + ": " + list[i].innerText);
             }
         });
     }

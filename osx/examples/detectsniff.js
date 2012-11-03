@@ -33,8 +33,8 @@ page.onInitialized = function () {
 };
 
 if (system.args.length === 1) {
-    console.log('Usage: unsniff.js <some URL>');
-    phantom.exit();
+    console.log('Usage: detectsniff.js <some URL>');
+    phantom.exit(1);
 } else {
     address = system.args[1];
     console.log('Checking ' + address + '...');
